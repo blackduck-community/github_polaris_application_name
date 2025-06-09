@@ -4,7 +4,7 @@ author: Jouni Lehto
 inputs:
   github_url:
     description: "GitHub URL"
-    required: true
+    required: false
   github_token:
     description: "GitHub Access token"
     required: true
@@ -13,13 +13,16 @@ inputs:
     required: true
   github_custom_property_keys:
     description: "Custom property key to export"
-    required: true
+    required: false
+  use_repository_name:
+    description: "true, will use repository name as an application name, if custom property is not found"
+    required: false
 
 runs:
   using: composite
   steps:
     - run: |
         pip install -r ${{github.action_path}}/requirements.txt
-        VALUE=$(python3 ${{github.action_path}}/githubConnector.py --github_url="${{inputs.github_url}}" --github_token=${{inputs.github_token}} --repository="${{inputs.github_repo}}" --github_application_keys="${{inputs.github_custom_property_keys}}")
+        VALUE=$(python3 ${{github.action_path}}/githubConnector.py --use_repository_name="${{inputs.use_repository_name}}" --github_url="${{inputs.github_url}}" --github_token=${{inputs.github_token}} --repository="${{inputs.github_repo}}" --github_application_keys="${{inputs.github_custom_property_keys}}")
         echo "POLARIS_APPLICATION_NAME=$VALUE" >> $GITHUB_ENV
       shell: bash

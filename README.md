@@ -12,6 +12,7 @@ Custom property keys can be given as a comma separated list. The first matching 
 | github_token | GitHub Access Token | - | GH_ACCESS_TOKEN | true |
 | github_custom_property_keys | Comma separated list of GH custom property keys where application name could be given | application_name,mac_id,portfolio | - | false |
 | github_repo | GitHub repository name which custom properties will be checked | - | - | true |
+| use_repository_name | true, will use repository name as an application name, if custom property is not found | false | - | false |
 
 ## Usage examples
 This example is using Black Duck official GitHub Action [Black Duck Security Scan](https://github.com/marketplace/actions/black-duck-security-scan) to run the actual Polaris scan.

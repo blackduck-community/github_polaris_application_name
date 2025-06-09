@@ -38,17 +38,23 @@ class GitHubConnector:
     def get_application_name(self, repo:str) -> str:
         '''
         Try to find application name from custom properties of the given repostitory.
+        If use_repository_name = True, then if application name hasn't been solved with 
+        custom properties, the given repository name is returned.
         :param repo: GitHub repository name
         '''
         try:
+            application_name = None
             custom_properties = self.__get_all_custom_properties(repo)
             for app_key in self.app_keys:
                 if app_key in custom_properties:
-                    return custom_properties[app_key]
+                    if custom_properties[app_key]:
+                        application_name = custom_properties[app_key]
+            if not application_name and args.use_repository_name:
+                application_name = repo
+            return application_name
         except github.GithubException as e:
             print(e)
             return None
-        return None
     
     def __get_all_custom_properties(self, repo:str) -> dict:
         try:
@@ -61,6 +67,8 @@ class GitHubConnector:
             return []
         return []
 
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
 
 #Main for example how to run the script
 if __name__ == "__main__":
@@ -71,6 +79,7 @@ if __name__ == "__main__":
         parser.add_argument('--github_token', default=os.getenv('GH_ACCESS_TOKEN'), help='GitHub Access Token')
         parser.add_argument('--github_application_keys', help='GitHub custom property keys for application.', default="application_name,mac_id,portfolio" , required=False)
         parser.add_argument('--repository', help='Repository name which name you want to export', required=True)
+        parser.add_argument('--use_repository_name', help="true, will use repository name as an application name, if custom property is not found", default=False, type=str2bool)
         args = parser.parse_args()
         gitConnector = GitHubConnector(giturl=args.github_url, gittoken=args.github_token, application_keys=args.github_application_keys)
         appname = gitConnector.get_application_name(args.repository)
