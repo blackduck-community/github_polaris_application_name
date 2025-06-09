@@ -1,3 +1,16 @@
+'''
+This Script will print out GitHub custom proprty value with given custom property key.
+Custom property keys can be given as a comma separated list. This script will print out
+the first matching property, so the order of the keys will matter.
+
+usage: githubConnector.py [-h] [--github_url GITHUB_URL] [--github_token GITHUB_TOKEN] [--github_application_keys GITHUB_APPLICATION_KEYS] --repository REPOSITORY
+
+Environment parameters
+----------------------
+GH_SERVER_URL - GitHub Server URL. GitHub Server URL must be given if you are using GH Enterprise version. Otherwise, will use GitHub.com
+GH_ACCESS_TOKEN - GitHub Access Token.
+
+'''
 import github
 import argparse
 import os
@@ -23,6 +36,10 @@ class GitHubConnector:
             self.github = github.Github(auth=auth)
 
     def get_application_name(self, repo:str) -> str:
+        '''
+        Try to find application name from custom properties of the given repostitory.
+        :param repo: GitHub repository name
+        '''
         try:
             custom_properties = self.__get_all_custom_properties(repo)
             for app_key in self.app_keys:
