@@ -39,7 +39,4 @@ This example is using Black Duck official GitHub Action [Black Duck Security Sca
           polaris_reports_sarif_issue_types: 'SAST' 
           polaris_upload_sarif_report: true 
           github_token: ${{secrets.GITHUB_TOKEN}}
-      env:
-        DETECT_ACCURACY_REQUIRED: NONE  
-
 ```
