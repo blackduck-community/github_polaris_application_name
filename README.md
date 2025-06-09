@@ -1,7 +1,7 @@
 # github_polaris_application_name
 Get Application name for Polaris from GitHub custom properties.
 
-This Action will set the found application name as an environment variable with key **POLARIS_APPLICATION_NAME**.
+This Action will set the found application name as an environment variable with key **BRIDGE_POLARIS_APPLICATION_NAME**.
 
 Custom property keys can be given as a comma separated list. The first matching property will be set as an application_name env. parameter, so the order of the keys will matter.
 
@@ -27,8 +27,7 @@ This example is using Black Duck official GitHub Action [Black Duck Security Sca
       with:
           polaris_server_url: ${{secrets.NEXTGEN_POLARIS_SERVER_URL}}
           polaris_access_token: ${{secrets.NEXTGEN_POLARIS_ACCESS_TOKEN}}
-          polaris_application_name: ${{ env.POLARIS_APPLICATION_NAME }} # After running synopsys-sig-community/github_polaris_application_name -action the polaris
-          polaris_project_name: ${{github.repository}}                  # application name is set as an environment variable with key POLARIS_APPLICATION_NAME   
+          polaris_project_name: ${{github.repository}}
           polaris_branch_name: ${{github.ref_name}}
           polaris_assessment_types: "SAST"
           polaris_reports_sarif_create: true  
