@@ -1,7 +1,7 @@
 # github_polaris_application_name
 Get Application name for Polaris from GitHub custom properties.
 
-This Action will set the found application name as an environment variable with key **BRIDGE_POLARIS_APPLICATION_NAME**.
+This Action will set the found application name as an environment variable with key **POLARIS.APPLICATION.NAME**.
 
 Custom property keys can be given as a comma separated list. The first matching property will be set as an application_name env. parameter, so the order of the keys will matter.
 
