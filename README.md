@@ -8,17 +8,18 @@ Custom property keys can be given as a comma separated list. The first matching 
 ## Available Options
 | Option name | Description | Default value | Environment variable | Required |
 |-------------|-------------|---------------|----------|----------|
-| --github_url | GitHub Url, must be given if GH Enterprise in use | - | GH_SERVER_URL | false |
-| --github_token | GitHub Access Token | - | GH_ACCESS_TOKEN | true |
-| --github_application_keys | Comma separated list of GH custom property keys where application name could be given | application_name,mac_id,portfolio | - | false |
-| --repository | GitHub repository name which custom properties will be checked | - | - | true |
+| github_url | GitHub Url, must be given if GH Enterprise in use | - | GH_SERVER_URL | false |
+| github_token | GitHub Access Token | - | GH_ACCESS_TOKEN | true |
+| github_custom_property_keys | Comma separated list of GH custom property keys where application name could be given | application_name,mac_id,portfolio | - | false |
+| github_repo | GitHub repository name which custom properties will be checked | - | - | true |
 
 ## Usage examples
+This example is using Black Duck official GitHub Action [Black Duck Security Scan](https://github.com/marketplace/actions/black-duck-security-scan) to run the actual Polaris scan.
 ```yaml
     - name: Get Application name for Polaris
       uses: synopsys-sig-community/github_polaris_application_name@main
       with:
-        github_apiToken: ${{secrets.GITHUB_TOKEN}}
+        github_token: ${{secrets.GITHUB_TOKEN}}
         github_repo: ${{github.repository}}
     - name: Nextgen Polaris Analysis with black-duck-security-scan
       uses: blackduck-inc/black-duck-security-scan@v2
@@ -28,17 +29,15 @@ Custom property keys can be given as a comma separated list. The first matching 
           polaris_application_name: ${{ env.application_name }}
           polaris_project_name: ${{github.repository}}
           polaris_branch_name: ${{github.ref_name}}
-          ### Accepts Multiple Values
           polaris_assessment_types: "SAST"
           detect_search_depth: 4
-          ### SARIF report generation and upload to GitHub Adavanced Security Tab: Uncomment below to enable
           polaris_reports_sarif_create: true  
-          polaris_reports_sarif_file_path: '${{github.workspace}}/polaris-scan-results.sarif.json' # File path (including file name) where SARIF report is created.
-          polaris_reports_sarif_severities: "CRITICAL,HIGH,MEDIUM,LOW" #Critical, High, Medium, Low, and Informational, Default: All severities are included.
+          polaris_reports_sarif_file_path: '${{github.workspace}}/polaris-scan-results.sarif.json'
+          polaris_reports_sarif_severities: "CRITICAL,HIGH,MEDIUM,LOW"
           polaris_reports_sarif_groupSCAIssues: false 
           polaris_reports_sarif_issue_types: 'SAST' 
           polaris_upload_sarif_report: true 
-          github_token: ${{secrets.GITHUB_TOKEN}}  # Required when polaris_upload_sarif_report is set as true
+          github_token: ${{secrets.GITHUB_TOKEN}}
       env:
         DETECT_ACCURACY_REQUIRED: NONE  
 

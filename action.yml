@@ -5,13 +5,13 @@ inputs:
   github_url:
     description: "GitHub URL"
     required: true
-  github_apiToken:
+  github_token:
     description: "GitHub Access token"
     required: true
   github_repo:
     description: "GitHub repository"
     required: true
-  github_custom_property_key:
+  github_custom_property_keys:
     description: "Custom property key to export"
     required: true
 
@@ -20,6 +20,6 @@ runs:
   steps:
     - run: |
         pip install -r ${{github.action_path}}/requirements.txt
-        VALUE=$(python3 ${{github.action_path}}/githubConnector.py --github_url="${{inputs.github_url}}" --github_token=${{inputs.github_apiToken}} --repository="${{inputs.github_repo}}" --github_application_key="${{inputs.github_custom_property_key}}")
+        VALUE=$(python3 ${{github.action_path}}/githubConnector.py --github_url="${{inputs.github_url}}" --github_token=${{inputs.github_token}} --repository="${{inputs.github_repo}}" --github_application_keys="${{inputs.github_custom_property_keys}}")
         echo "application_name=$VALUE" >> $GITHUB_ENV
       shell: bash
