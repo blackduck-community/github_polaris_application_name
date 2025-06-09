@@ -31,7 +31,6 @@ This example is using Black Duck official GitHub Action [Black Duck Security Sca
           polaris_project_name: ${{github.repository}}                  # application name is set as an environment variable with key POLARIS_APPLICATION_NAME   
           polaris_branch_name: ${{github.ref_name}}
           polaris_assessment_types: "SAST"
-          detect_search_depth: 4
           polaris_reports_sarif_create: true  
           polaris_reports_sarif_file_path: '${{github.workspace}}/polaris-scan-results.sarif.json'
           polaris_reports_sarif_severities: "CRITICAL,HIGH,MEDIUM,LOW"
