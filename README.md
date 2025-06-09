@@ -1,2 +1,45 @@
 # github_polaris_application_name
 Get Application name for Polaris from GitHub custom properties.
+
+This Action will set the found application name as an environment variable with key **application_name**.
+
+Custom property keys can be given as a comma separated list. The first matching property will be set as an application_name env. parameter, so the order of the keys will matter.
+
+## Available Options
+| Option name | Description | Default value | Environment variable | Required |
+|-------------|-------------|---------------|----------|----------|
+| --github_url | GitHub Url, must be given if GH Enterprise in use | - | GH_SERVER_URL | false |
+| --github_token | GitHub Access Token | - | GH_ACCESS_TOKEN | true |
+| --github_application_keys | Comma separated list of GH custom property keys where application name could be given | application_name,mac_id,portfolio | - | false |
+| --repository | GitHub repository name which custom properties will be checked | - | - | true |
+
+## Usage examples
+```yaml
+    - name: Get Application name for Polaris
+      uses: synopsys-sig-community/github_polaris_application_name@main
+      with:
+        github_apiToken: ${{secrets.GITHUB_TOKEN}}
+        github_repo: ${{github.repository}}
+    - name: Nextgen Polaris Analysis with black-duck-security-scan
+      uses: blackduck-inc/black-duck-security-scan@v2
+      with:
+          polaris_server_url: ${{secrets.NEXTGEN_POLARIS_SERVER_URL}}
+          polaris_access_token: ${{secrets.NEXTGEN_POLARIS_ACCESS_TOKEN}}
+          polaris_application_name: ${{ env.application_name }}
+          polaris_project_name: ${{github.repository}}
+          polaris_branch_name: ${{github.ref_name}}
+          ### Accepts Multiple Values
+          polaris_assessment_types: "SAST"
+          detect_search_depth: 4
+          ### SARIF report generation and upload to GitHub Adavanced Security Tab: Uncomment below to enable
+          polaris_reports_sarif_create: true  
+          polaris_reports_sarif_file_path: '${{github.workspace}}/polaris-scan-results.sarif.json' # File path (including file name) where SARIF report is created.
+          polaris_reports_sarif_severities: "CRITICAL,HIGH,MEDIUM,LOW" #Critical, High, Medium, Low, and Informational, Default: All severities are included.
+          polaris_reports_sarif_groupSCAIssues: false 
+          polaris_reports_sarif_issue_types: 'SAST' 
+          polaris_upload_sarif_report: true 
+          github_token: ${{secrets.GITHUB_TOKEN}}  # Required when polaris_upload_sarif_report is set as true
+      env:
+        DETECT_ACCURACY_REQUIRED: NONE  
+
+```
