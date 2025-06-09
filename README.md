@@ -35,7 +35,6 @@ This example is using Black Duck official GitHub Action [Black Duck Security Sca
           polaris_reports_sarif_create: true  
           polaris_reports_sarif_file_path: '${{github.workspace}}/polaris-scan-results.sarif.json'
           polaris_reports_sarif_severities: "CRITICAL,HIGH,MEDIUM,LOW"
-          polaris_reports_sarif_groupSCAIssues: false 
           polaris_reports_sarif_issue_types: 'SAST' 
           polaris_upload_sarif_report: true 
           github_token: ${{secrets.GITHUB_TOKEN}}
