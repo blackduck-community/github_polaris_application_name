@@ -14,6 +14,7 @@ inputs:
   github_custom_property_keys:
     description: "Custom property key to export"
     required: false
+    default: "application_name,mac_id,portfolio"
   use_repository_name:
     description: "true, will use repository name as an application name, if custom property is not found"
     required: false
