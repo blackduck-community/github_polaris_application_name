@@ -1,0 +1,25 @@
+name: "GitHub Custom Property Exporter"
+description: "Will get given custom property from GH for given repository. Will set value to environment variable with given github_custom_property_key"
+author: Jouni Lehto
+inputs:
+  github_url:
+    description: "GitHub URL"
+    required: true
+  github_apiToken:
+    description: "GitHub Access token"
+    required: true
+  github_repo:
+    description: "GitHub repository"
+    required: true
+  github_custom_property_key:
+    description: "Custom property key to export"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - run: |
+        pip install -r ${{github.action_path}}/requirements.txt
+        VALUE=$(python3 ${{github.action_path}}/githubConnector.py --github_url="${{inputs.github_url}}" --github_token=${{inputs.github_apiToken}} --repository="${{inputs.github_repo}}" --github_application_key="${{inputs.github_custom_property_key}}")
+        echo "application_name=$VALUE" >> $GITHUB_ENV
+      shell: bash
