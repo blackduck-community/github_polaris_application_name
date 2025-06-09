@@ -2,6 +2,8 @@ import github
 import argparse
 import os
 
+__version__ = "0.0.1"
+
 class GitHubConnector:
 
     def __init__(self, giturl:str, gittoken:str, application_keys:str) -> None:
