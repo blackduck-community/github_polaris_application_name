@@ -24,6 +24,5 @@ runs:
   steps:
     - run: |
         pip install -r ${{github.action_path}}/requirements.txt
-        VALUE=$(python3 ${{github.action_path}}/githubConnector.py --use_repository_name="${{inputs.use_repository_name}}" --github_url="${{inputs.github_url}}" --github_token=${{inputs.github_token}} --repository="${{inputs.github_repo}}" --github_application_keys="${{inputs.github_custom_property_keys}}")
-        # echo "POLARIS_APPLICATION_NAME=$VALUE" >> $GITHUB_ENV
+        python3 ${{github.action_path}}/githubConnector.py --use_repository_name="${{inputs.use_repository_name}}" --github_url="${{inputs.github_url}}" --github_token=${{inputs.github_token}} --repository="${{inputs.github_repo}}" --github_application_keys="${{inputs.github_custom_property_keys}}"
       shell: bash
