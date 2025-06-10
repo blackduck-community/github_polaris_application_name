@@ -1,5 +1,5 @@
 '''
-This Script will print out GitHub custom proprty value with given custom property key.
+This Script will set found application name as GitHub environment variable with key POLARIS_APPLICATION_NAME.
 Custom property keys can be given as a comma separated list. This script will print out
 the first matching property, so the order of the keys will matter.
 
