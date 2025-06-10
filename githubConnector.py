@@ -83,7 +83,8 @@ if __name__ == "__main__":
         args = parser.parse_args()
         gitConnector = GitHubConnector(giturl=args.github_url, gittoken=args.github_token, application_keys=args.github_application_keys)
         appname = gitConnector.get_application_name(args.repository)
-        print(appname)
+        os.system(f"echo \"POLARIS_APPLICATION_NAME={appname}\" >> $GITHUB_ENV")
+        # print(appname)
     except Exception as e:
         print(e)
         exit(-1)
