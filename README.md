@@ -25,8 +25,8 @@ This example is using Black Duck official GitHub Action [Black Duck Security Sca
     - name: Nextgen Polaris Analysis with black-duck-security-scan
       uses: blackduck-inc/black-duck-security-scan@v2
       with:
-          polaris_server_url: ${{secrets.NEXTGEN_POLARIS_SERVER_URL}}
-          polaris_access_token: ${{secrets.NEXTGEN_POLARIS_ACCESS_TOKEN}}
+          polaris_server_url: ${{secrets.POLARIS_SERVER_URL}}
+          polaris_access_token: ${{secrets.POLARIS_ACCESS_TOKEN}}
           polaris_application_name: ${{ env.POLARIS_APPLICATION_NAME }} # After running synopsys-sig-community/github_polaris_application_name -action the polaris
           polaris_project_name: ${{github.repository}}                  # application name is set as an environment variable with key POLARIS_APPLICATION_NAME   
           polaris_branch_name: ${{github.ref_name}}
