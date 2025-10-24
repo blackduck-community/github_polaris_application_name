@@ -18,7 +18,7 @@ Custom property keys can be given as a comma separated list. The first matching 
 This example is using Black Duck official GitHub Action [Black Duck Security Scan](https://github.com/marketplace/actions/black-duck-security-scan) to run the actual Polaris scan.
 ```yaml
     - name: Get Application name for Polaris
-      uses: synopsys-sig-community/github_polaris_application_name@v1
+      uses: blackduck-community/github_polaris_application_name@v1
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         github_repo: ${{github.repository}}
